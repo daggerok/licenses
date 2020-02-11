@@ -1,11 +1,9 @@
 <template>
   <v-card>
     <v-app-bar>
-      <v-spacer/>
-      <v-toolbar-title>
-        License Helper
-      </v-toolbar-title>
-      <v-spacer/>
+      <v-container class="container">
+        <slot></slot>
+      </v-container>
     </v-app-bar>
   </v-card>
 </template>
@@ -17,5 +15,7 @@
 </script>
 
 <style scoped>
-
+  .container {
+    padding-top: 2em;
+  }
 </style>

@@ -5,8 +5,11 @@
   >
     <v-list-item>
       <v-list-item-content>
-        <div class="overline mb-4">License: <a target="_blank" class="clean" :href="getLicense.url">{{
-          getLicense.spdx_id }}</a></div>
+        <div class="overline mb-4">
+          License: <a target="_blank" class="clean" :href="getLicense.url">
+            {{ getLicense.spdx_id }}
+          </a>
+        </div>
         <v-list-item-title class="headline mb-1">{{ getLicense.name }}</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
@@ -18,12 +21,18 @@
     <Summary :license="getLicense" />
 
     <v-card-actions>
-      <v-btn
-        text
-        :href="getLicense.html_url"
-      >
-        Explore
-      </v-btn>
+      <v-flex class="ma-1 pa-1 text-center">
+        <v-btn
+          text
+          large
+          outlined
+          color="primary"
+          min-width="15em"
+          :href="getLicense.html_url"
+        >
+          Explore
+        </v-btn>
+      </v-flex>
     </v-card-actions>
   </v-card>
 </template>
@@ -34,7 +43,9 @@
 
   export default {
     name: 'License',
-    components: { Summary },
+    components: {
+      Summary
+    },
     computed: {
       ...mapGetters({
         getLicense: 'licenses/getLicense',
@@ -45,6 +56,6 @@
 
 <style scoped>
   a.clean {
-    color: white;
+    /*color: white;*/
   }
 </style>

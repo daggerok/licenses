@@ -6,6 +6,7 @@
       v-show="isFabVisible"
       v-scroll="onScroll"
       @click="toTop"
+      light
       fixed
       right
       top

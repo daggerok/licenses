@@ -7,7 +7,7 @@
       class="text-center"
       cols="12"
     >
-      2019—present &copy; <strong>Maksim Kostromin</strong>
+      MIT &copy; {{ new Date().getFullYear() }} <a target="_blank" href="https://github.com/daggerok/licenses"><strong>daggerok</strong></a> | Maksim Kostromin
     </v-col>
   </v-footer>
 </template>
@@ -17,3 +17,9 @@
     name: 'Footer'
   };
 </script>
+
+<style scoped>
+  a {
+    text-decoration: none;
+  }
+</style>

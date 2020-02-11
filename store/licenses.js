@@ -6,6 +6,7 @@ import axios from 'axios';
 export const state = () => ({
   // https://help.github.com/en/github/creating-cloning-and-archiving-repositories/licensing-a-repository#searching-github-by-license-type
   githubPublicApiUrl: 'https://api.github.com/licenses',
+  localApiUrl: 'https://daggerok.github.io/licenses/api',
   knownLicenses: [
     { 'afl-3.0': 'Academic Free License v3.0' },
     { 'apache-2.0': 'Apache license 2.0' },
@@ -23,7 +24,7 @@ export const state = () => ({
     { 'epl-1.0': 'Eclipse Public License 1.0' },
     { 'eupl-1.1': 'European Union Public License 1.1' },
     { 'agpl-3.0': 'GNU Affero General Public License v3.0' },
-    { 'gpl': 'GNU General Public License family' },
+    // { 'gpl': 'GNU General Public License family' }, // not available
     { 'gpl-2.0': 'GNU General Public License v2.0' },
     { 'gpl-3.0': 'GNU General Public License v3.0' },
     // { 'lgpl': 'GNU Lesser General Public License family' }, // not available
@@ -41,6 +42,7 @@ export const state = () => ({
     { 'unlicense': 'The Unlicense' },
     { 'zlib': 'zLib License' },
   ],
+  isLocal: true,
   license: null,
   currentKey: null,
 });
@@ -58,6 +60,7 @@ export const mutations = {
  */
 export const getters = {
   getGithubPublicApiUrl: state => state.githubPublicApiUrl,
+  getLocalApiUrl: state => state.localApiUrl,
   getKnownLicenses: state => state.knownLicenses,
   getKnownLicenseKeys: (state, getters) => getters
     .getKnownLicenses.map(l => Object.keys(l)),
@@ -71,7 +74,9 @@ export const getters = {
 export const actions = {
   fetchLicenseByKey: ({state, getters, commit, dispatch}, key) =>
     axios
-      .get(`${getters.getGithubPublicApiUrl}/${key}`, {
+      .get(!state.isLocal
+        ? `${getters.getGithubPublicApiUrl}/${key}`
+        : `${getters.getLocalApiUrl}/${key}.json`, {
         cors: true,
         headers: {
           'Accept': 'application/json',

@@ -1,4 +1,4 @@
-# licenses [![Build Status](https://travis-ci.org/daggerok/licenses.svg?branch=master)](https://travis-ci.org/daggerok/licenses) [![CI](https://github.com/daggerok/licenses/workflows/CI/badge.svg)](https://github.com/daggerok/licenses/actions)
+# GitHub license helper [![Build Status](https://travis-ci.org/daggerok/licenses.svg?branch=master)](https://travis-ci.org/daggerok/licenses) [![CI](https://github.com/daggerok/licenses/workflows/CI/badge.svg)](https://github.com/daggerok/licenses/actions)
 
 > This application can help quickly get licensing info and view its permissions, conditions and limitations by using
   GitHub public API. [Try it out](https://daggerok.github.io/licenses/)

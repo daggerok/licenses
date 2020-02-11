@@ -1,24 +1,23 @@
 <template>
-  <v-layout>
-    <v-col>
-      <v-row justify="center">
-        <v-switch
-          class="ma-1"
-          v-model="isVisible"
-          label="view raw license content"
-        >
-        </v-switch>
-      </v-row>
-      <v-row justify="center">
-        <pre
-          v-if="isVisible && getLicense != null"
-          class="is-overflow-auto"
-        >
-          {{ getLicense.body }}
-        </pre>
-      </v-row>
-    </v-col>
-  </v-layout>
+  <v-col class="raw">
+    <v-row justify="center">
+      <v-switch
+        class="ma-1"
+        v-model="isVisible"
+        v-if="getLicense != null"
+        label="view raw license content"
+      >
+      </v-switch>
+    </v-row>
+    <v-row justify="center">
+      <pre
+        v-if="isVisible && getLicense != null"
+        class="is-overflow-auto"
+      >
+        {{ getLicense.body }}
+      </pre>
+    </v-row>
+  </v-col>
 </template>
 
 <script>
@@ -42,5 +41,8 @@
 <style scoped>
   pre.is-overflow-auto {
     overflow: auto;
+  }
+  .raw {
+    margin-bottom: 2em;
   }
 </style>

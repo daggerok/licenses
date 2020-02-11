@@ -1,6 +1,6 @@
-import colors from 'vuetify/es5/util/colors'
+import colors from 'vuetify/es5/util/colors';
 
-const { blue, grey, amber, teal, deepOrange, green } = colors;
+const { blue, grey, amber, teal, deepOrange, green, blueGrey, pink, red, lightBlue } = colors;
 const baseHref = process.env.BASE_HREF || '/';
 
 export default {
@@ -76,16 +76,38 @@ export default {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: false,
+      options: {
+        minifyTheme: function (css) {
+          const isProd = process.env.NODE_ENV === 'production';
+          return isProd
+            ? css.replace(/[\r\n|\r|\n]/g, '')
+            : css
+        },
+      },
+      disable: false,
+      dark: true,
       themes: {
         dark: {
-          primary: blue.darken2,
+          base: grey.lighten3,
+          // primary: colors.blue.lighten3,
+          primary: blue.lighten1,
+          secondary: amber.darken2,
+          success: green.accent4,
           accent: grey.darken3,
-          secondary: amber.darken3,
-          info: teal.lighten1,
+          info: teal.lighten3,
           warning: amber.base,
-          error: deepOrange.accent4,
-          success: green.accent3
+          error: deepOrange.accent2,
+          anchor: '#8c9eff',
+        },
+        light: {
+          primary: '#3f51b5', // blue.base,
+          secondary: '#b0bec5', // blueGrey.base,
+          accent: pink.base,
+          error: red.accent1, // red.base,
+          warning: deepOrange.base,
+          info: lightBlue.base,
+          success: teal.base,
+          anchor: '#8c9eff',
         },
       },
     },
