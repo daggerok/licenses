@@ -1,0 +1,50 @@
+{
+  "name": "licenses",
+  "version": "1.0.0",
+  "description": "View licenses info using GitHub public API",
+  "author": "Maksim Kostromin <daggerok@gmail.com>",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "pm2": "pm2 start 'npm run dev' --name app",
+    "restart": "pm2 restart app",
+    "stop": "pm2 kill",
+    "logs": "pm2 logs",
+    "gh": "cross-env BASE_HREF='/licenses/' npm run generate",
+    "postgh": "ncp ./dist/index.html ./dist/404.html"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "5.9.5",
+    "@nuxtjs/dotenv": "1.4.1",
+    "@nuxtjs/pwa": "3.0.0-beta.20",
+    "material-design-icons-iconfont": "5.0.1",
+    "nuxt": "2.11.0"
+  },
+  "devDependencies": {
+    "@nuxtjs/vuetify": "1.10.3",
+    "@web-types/vuetify": "2.0.15-1",
+    "axios": "0.19.2",
+    "cross-env": "7.0.0",
+    "ncp": "2.0.0",
+    "nuxt-webfontloader": "1.1.0",
+    "pm2": "4.2.3",
+    "svg-loader": "0.0.2",
+    "vuex": "3.1.2"
+  },
+  "keywords": [
+    "pm2",
+    "nuxt",
+    "vuex",
+    "github",
+    "vuetify",
+    "cross-env",
+    "material-design-icons-iconfont",
+    "webfontloader",
+    "axios",
+    "pwa",
+    "ncp"
+  ]
+}

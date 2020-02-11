@@ -1,0 +1,65 @@
+notifications:
+  email: false
+git:
+  quiet: true
+  depth: false
+language: python
+python: 3.8
+node_js: lts/*
+addons:
+  apt:
+    update: false
+    packages:
+      - curl
+install: true
+before_install:
+  - |
+    if [ ! -f ${HOME}/.local/daggerok/bash-functions/master/main.bash ] ; then
+      mkdir -p ${HOME}/.local/daggerok/bash-functions/master
+      curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash > ${HOME}/.local/daggerok/bash-functions/master/main.bash
+    fi
+    source ${HOME}/.local/daggerok/bash-functions/master/main.bash
+    stop_any 3000 5000
+  - |
+    export PATH=$HOME/.local/bin:$PATH
+    python -m pip install --upgrade pip setuptools pyopenssl
+    python -m pip install --upgrade httpie
+jobs:
+  include:
+    - stage: test
+      name: tests
+      before_script:
+        - cd $TRAVIS_BUILD_DIR && npm i -E
+        - cd $TRAVIS_BUILD_DIR && npm run pm2
+        - cd $TRAVIS_BUILD_DIR && npm run logs &
+        - wait_for 3000
+      script:
+        - http :3000/
+      after_script: cd $TRAVIS_BUILD_DIR && npm stop
+    - stage: deploy
+      name: GitHub Pages
+      env:
+        - secure: "Fif9OtY8X7ZtYabXptpq7oNhb0VX0zvIGhE+6qOTaq2xsLBNr/u9LqwNM6eMZ5l1bHIutZ3FprAQq1eKswMC4Y03mbTwEdIj9QC0gRHMU3SNM/t77y04iHV2HUHQ/QUoaqRTdOswb5H/860gvwNBlszNcTn0rlB0cXjafO1v2e5bBH0kv8+nlUOpA9ZI8SJLvov5D+Lw6dRnrbFQXwZ/+Q1d0Nzk3xLJIRdwuro3dqSv8j81zj0jXYmQNf+ngLPqaYSZSMsT6wqDsd23gscbYXWThvem19SiEAZyANQM5WPwDGFn0d84WF82KWGUS9yYIdaNUQWoVmWcXutIoW4aABMCdbdn94Ap64ac4aS77VhWJMGRybf/gvvJdv2xkQGP00tqeDriq88egaT+pwl5HqGVrwcY226NU6PuUfi4bN6A/0jhoMck2uuBr+8JGOr2zbT+QxTAGt7Uqm553ZnYj5iFgtC+AVgldLYdDWCl0O0AZ3KIN5jNiE9Pkq7eEDOavwenAfQ0l8QuXulPO47KqhJVa4ap/3iWd1RyZrKPnjWXaIFaGdGrc1bm92Fo/bg8qSxfVRTtnn/ke8dXIkQ0jHLC+07Kt/wSGJoYt/p5DmiM03fbkMHTdLBX3JAsVX219Q19+mm/j7dOiiKyUP0MacsvA0jKyhbbmWznSQ1z8cA="
+        - SUB_PROJECT=flexbox-tutorial
+      script: skip
+      before_deploy:
+        - set -e
+        - cd $TRAVIS_BUILD_DIR && npm i -E
+        - cd $TRAVIS_BUILD_DIR && npm run gh
+      deploy: &pages
+        provider: pages
+        skip-cleanup: true
+        github-token: "$GITHUB_TOKEN"
+        keep-history: true
+        local-dir: $TRAVIS_BUILD_DIR/dist
+        target_branch: gh-pages
+        on:
+          branch: master
+          condition: "$TRAVIS_PULL_REQUEST = false"
+cache:
+  npm: true
+  pip: true
+  packages: true
+  directories:
+    - ~/.n*
+    - ~/.local/daggerok

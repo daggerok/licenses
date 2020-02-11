@@ -1,0 +1,36 @@
+name: CI
+on: [push]
+jobs:
+  tests:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        nodejs-version: [12]
+        python-version: [3.8]
+    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.os }} OS, python ${{ matrix.python-version }}, NodeJS ${{ matrix.nodejs-version }}
+    steps:
+      - name: Set up NodeJS ${{ matrix.nodejs-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.nodejs-version }}
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Clone git project
+        uses: actions/checkout@v2
+      - name: Install, build, run and test
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip setuptools
+          pip install --upgrade httpie
+          npm install -g wait-port
+          cd $GITHUB_WORKSPACE && npm i
+          cd $GITHUB_WORKSPACE && npm run gh
+          cd $GITHUB_WORKSPACE && npm run generate
+          cd $GITHUB_WORKSPACE && npm run pm2
+          cd $GITHUB_WORKSPACE && npm run logs &
+          wait-port 3000
+          http get :3000
+          cd $GITHUB_WORKSPACE && npm stop
