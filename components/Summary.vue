@@ -7,7 +7,7 @@
         outlined
         type="success"
       >
-        Permissions:
+        Permissions
       </v-alert>
       <ul v-for="(p, i) in license.permissions">
         <li :key="i">{{ p }}</li>
@@ -20,7 +20,7 @@
         outlined
         type="info"
       >
-        Conditions:
+        Conditions
       </v-alert>
       <ul v-for="(c, i) in license.conditions">
         <li :key="i">{{ c }}</li>
@@ -33,7 +33,7 @@
         outlined
         type="error"
       >
-        Limitations:
+        Limitations
       </v-alert>
       <ul v-for="(l, i) in license.limitations">
         <li :key="i">{{ l }}</li>

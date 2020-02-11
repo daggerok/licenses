@@ -6,7 +6,7 @@
       v-show="isFabVisible"
       v-scroll="onScroll"
       @click="toTop"
-      light
+      class="grey darken-2"
       fixed
       right
       top
@@ -22,7 +22,8 @@
     name: 'Fab',
     methods: {
       toTop() {
-        this.$router.push({ hash: '' });
+        const path = `?key=${this.$route.query.key}` || '';
+        this.$router.push({ path });
         this.$vuetify.goTo(0);
       },
       onScroll(e) { // https://github.com/vuetifyjs/vuetify/blob/47847224a4a94fdbf39208932b1c631dd0b39b63/packages/docs/src/layouts/documentation/Fab.vue

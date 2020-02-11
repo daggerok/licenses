@@ -89,15 +89,14 @@ export default {
       themes: {
         dark: {
           base: grey.lighten3,
-          // primary: colors.blue.lighten3,
           primary: blue.lighten1,
           secondary: amber.darken2,
           success: green.accent4,
           accent: grey.darken3,
-          info: teal.lighten3,
+          info: teal.lighten2,
           warning: amber.base,
-          error: deepOrange.accent2,
-          anchor: '#8c9eff',
+          error: deepOrange.lighten3,
+          anchor: blue.lighten1,
         },
         light: {
           primary: '#3f51b5', // blue.base,
@@ -124,10 +123,10 @@ export default {
     ** You can extend webpack config here
     */
     extend(config, { isClient }) {
-      const isProd = process.env.NODE_ENV === 'production';
-      if (isProd && isClient) {
-        config.optimization.splitChunks.maxSize = 249856; // 244 Kib
-      }
+      // const isProd = process.env.NODE_ENV === 'production';
+      // if (isProd && isClient) {
+      //   config.optimization.splitChunks.maxSize = 249856; // 244 Kib
+      // }
     },
 
   },
@@ -140,6 +139,8 @@ export default {
   generate: {
     routes: [
       '/',
+      // '/:key',
+      // '/?key=:key',
     ],
     fallback: true, // make sure 404.html file exists
   },

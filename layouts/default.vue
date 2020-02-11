@@ -56,6 +56,7 @@
           const licenseIsNotValid = this.getKnownLicenseKeys
             .find(key => key === value) === -1;
           if (licenseIsNotValid) return;
+          this.$router.push({ path: `/?key=${value}` });
           this.fetchLicenseByKey(value);
         },
       },

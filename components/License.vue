@@ -6,7 +6,7 @@
     <v-list-item>
       <v-list-item-content>
         <div class="overline mb-4">
-          License: <a target="_blank" class="clean" :href="getLicense.url">
+          License: <a target="_blank" :href="getLicense.url">
             {{ getLicense.spdx_id }}
           </a>
         </div>
@@ -55,7 +55,5 @@
 </script>
 
 <style scoped>
-  a.clean {
-    /*color: white;*/
-  }
+
 </style>
